@@ -13,11 +13,10 @@ Author: Borjan Trajanoski
 
 ## Project Overview
 
-This repository contains the source code, simulation models, data, and written
-documentation for an MSc thesis on large-scale hydrogen liquefaction. The work
-takes an 86 tonnes-per-day mixed-refrigerant pre-cooled Joule-Brayton reference
-process and quantifies two idealizations common in conceptual large-scale
-designs.
+This repository contains the source code, simulation models, data, and results
+for an MSc thesis on large-scale hydrogen liquefaction. The work takes an 86
+tonnes-per-day mixed-refrigerant pre-cooled Joule-Brayton reference process and
+quantifies two idealizations common in conceptual large-scale designs.
 
 The first is the property and kinetic modeling of the cryogenic catalytic
 plate-fin heat exchanger (PFHX). The helium-neon refrigerant is modeled with
@@ -28,51 +27,74 @@ exchanger length toward the single-unit manufacturing limit.
 
 The second is the assumption of full liquid yield, which ignores the boil-off
 gas (BOG) generated during LH2 storage and truck loading. A two-vessel storage
-model quantifies holding and loading BOG, and an ejector-driven recovery cycle
-is proposed and assessed for that BOG.
+model quantifies holding and loading BOG across a range of tank sizes,
+geometries, and orientations, and an ejector-driven recovery cycle is proposed
+and assessed for that BOG.
 
 A techno-economic analysis of the isolated cryogenic system then compares the
 baseline and adapted configurations.
 
 The codebase couples several tools: Aspen HYSYS for the process flowsheet,
 REFPROP and FeOs for fluid properties, MATLAB for the ejector and two-vessel
-storage models, and Python for data processing, TEA calculations, and all
-publication figures.
+storage models, and Python for data processing, TEA calculations, VLE/transport
+property fitting, and all publication figures.
 
 ---
 
 ## Repository Structure
 
-```text
+````text
 .
 ├── README.md
 ├── .gitignore
-├── LICENSE
 │
-├── data/
-│   ├── raw/                 # Unprocessed simulation exports, property tables
-│   ├── processed/           # Cleaned, analysis-ready datasets
-│   └── external/            # Third-party reference data (Petitpas, Al Ghafri, etc.)
+├── data/                        # Simulation exports and validation datasets (flat, CSV)
+│   ├── 1_3200m3_Spherical.csv, 2_3200m3_horizontal.csv, 2a_3200m3_vertical.csv,
+│   │   3_1500m3_spherical.csv, 4_1500m3_horizontal.csv, 4a_1500m3_vertical.csv,
+│   │   5_500m3_spherical.csv, 6_500m3_horizontal.csv, 6a_500m3_vertical.csv,
+│   │   7_100m3_spherical.csv, 8_100m3_horizontal.csv, 8a_100m3_vertical.csv
+│   │                            # Storage-tank BOG cases by volume/geometry/orientation
+│   ├── 3200m3_NASA_KSC_Case.csv, 3200m3_NASA_KSC_Case_v2.csv
+│   │                            # NASA KSC reference tank case
+│   ├── Boil-off_Simulation_Results.csv
+│   ├── Case_1_self_pressurization.csv, Case_2_DDL_Dewar_100days.csv
+│   │                            # Self-pressurization and long-duration dewar validation
+│   ├── ksite_selfpress_3.5Wm2.csv, ksite_temp_139cm_interface_3.5Wm2.csv,
+│   │   ksite_temp_162cm_vapor_3.5Wm2.csv
+│   │                            # K-Site cryogenic test facility validation data
+│   ├── llnl_boiloff_summer.csv  # LLNL boil-off validation data
+│   ├── assael_1981_he_ne_thermal_conductivity.csv, helium_thermal_conductivity_degroot1978.csv,
+│   │   neon_thermal_conductivity_degroot1978.csv
+│   │                            # Literature transport-property reference data
+│   └── validation_*assael1981*.csv
+│                                # SAFT/REFPROP transport-property validation vs. Assael (1981)
+│
+├── models/
+│   ├── LH2_aspen_model.hsc      # Aspen HYSYS process flowsheet
+│   └── LH2_aspen_model.bk0      # HYSYS backup
 │
 ├── src/
 │   ├── python/
 │   │   ├── properties/
-│   │   │   └── hydrogen-pfhx-saft/  # O'Neill PFHX model + SAFT-VRQ-Mie EOS (standalone package)
-│   │   └── tea/              # Techno-economic assessment (cryo_textbook_tea.py, economic_figures.py)
+│   │   │   ├── hydrogen-pfhx-saft/       # O'Neill PFHX model + SAFT-VRQ-Mie EOS (standalone package)
+│   │   │   └── hene_transport_properties/
+│   │   │       ├── HeNe_VLE_PR.ipynb     # He-Ne VLE via Peng-Robinson, vs. Heck et al. data
+│   │   │       ├── HeNe_VLE_SAFT.ipynb   # He-Ne VLE via SAFT-VRQ-Mie (feos), vs. Heck et al. data
+│   │   │       └── HeNe_transport.ipynb  # He-Ne transport property fitting
+│   │   └── tea/                          # Techno-economic assessment
 │   │
 │   ├── matlab/
-│   │   └── storage/          # Two-vessel holding/loading BOG model (Petitpas-based), steady-state loading
+│   │   └── storage/              # Two-vessel holding/loading BOG model, steady-state loading
 │   │
-│   └── pinch_analysis/       # PFHX-5 pinch + area pipeline and the ejector BOG-recovery model
-│       ├── ejector/          # Ejector solver (adapted from Moro et al.), MATLAB
-│       └── pinch/            # Pinch/area calculations (MATLAB) and figure scripts (Python)
+│   └── pinch_analysis/           # PFHX-5 pinch + area pipeline and the ejector BOG-recovery model
+│       ├── ejector/              # Ejector solver (adapted from Moro et al.), MATLAB
+│       └── pinch/                # Pinch/area calculations (MATLAB) and figure scripts (Python)
 │
-├── models/
-│   └── hysys/               # Aspen HYSYS case files (.hsc) and flowsheet notes
-│
-├── results/
-│   ├── figures/             # Final figures (versioned; large exports ignored)
-```
+└── results/
+    ├── figures/                 # Publication figures: validation plots, Ts diagrams, TEA/sensitivity
+    │                            # figures, pinch curves, transport-property fits, etc.
+    └── pfd/                     # Process flow diagrams (baseline, adapted, isolated configurations)
+````
 
 The `ejector/` and `pinch/` subfolders under `pinch_analysis/` are coupled by a
 fixed workflow (run the ejector step, then `cd ../pinch` and run the pinch
@@ -84,9 +106,9 @@ The thesis is organized by process stage. Chapter 4 covers the cryogenic PFHX
 Chapter 6 covers the techno-economic analysis. The `src/` layout mirrors this
 split.
 
-Large binary outputs (raw HYSYS exports, `.mat` files, high-resolution figure
-exports, compiled PDFs) are intentionally excluded from version control via
-`.gitignore`. Only source files and analysis-ready processed data are tracked.
+`.gitignore` excludes Python build artifacts (`__pycache__/`, `*.pyc`) and
+`.mat` files (large, regenerable MATLAB binaries). Everything else — figures,
+PDFs, HYSYS case files, and processed data — is tracked directly.
 
 ---
 
@@ -99,7 +121,8 @@ read off the manuscript.
 
 | Tool                  | Version         | Purpose                                        |
 |-----------------------|-----------------|------------------------------------------------|
-| Python                | 3.10 or later   | Data processing, TEA, figures                  |
+| Python                | 3.10 or later   | Data processing, TEA, figures, VLE notebooks   |
+| Jupyter               | latest          | He-Ne VLE / transport-property notebooks       |
 | MATLAB                | R2023b or later | Ejector and two-vessel storage models          |
 | Aspen HYSYS           | V14             | Process flowsheet and simulation               |
 | REFPROP               | v9.1 and v10    | Reference fluid properties                     |
@@ -116,7 +139,7 @@ source .venv/bin/activate        # Windows: .venv\Scripts\activate
 ```
 
 Populate `requirements.txt` with the packages actually imported (numpy, scipy,
-pandas, matplotlib, feos, and the REFPROP Python bindings).
+pandas, matplotlib, feos, jupyter, and the REFPROP Python bindings).
 
 ### Licensed and proprietary tools
 
