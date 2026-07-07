@@ -92,9 +92,9 @@ read off the manuscript.
 | Python                | 3.10 or later   | Data processing, TEA, figures, VLE notebooks   |
 | Jupyter               | latest          | He-Ne VLE / transport-property notebooks       |
 | MATLAB                | R2023b or later | Ejector and two-vessel storage models          |
-| Aspen HYSYS           | V14             | Process flowsheet and simulation               |
+| Aspen HYSYS           | v14             | Process flowsheet and simulation               |
 | REFPROP               | v10             | Reference fluid properties                     |
-| FeOs                  | latest          | SAFT-VRQ-Mie property calculations             |
+| FeOs                  | v0.9.3          | SAFT-VRQ-Mie property calculations             |
 | BoilFAST              | latest          | Boil-off gas cross-verification                |
 
 ### Python environment
