@@ -1,0 +1,36 @@
+# Configuration file for hydrogen PFHX with He-Ne coolant
+# Uses SAFT-VRQ-Mie EoS + Residual Entropy Scaling transport properties
+
+reactant:
+    mass_flow_rate: 100.0   # tonne-per-day
+    x_para: 0.25            # para-hydrogen fraction at inlet
+    temperature: 80         # inlet temperature (K)
+    pressure: 5000          # inlet pressure (kPa)
+
+coolant:
+    fluid: "HeliumNeon"     # triggers HeliumNeonSAFT class
+    helium_fraction: 0.80   # mole fraction of helium (rest is neon)
+    mass_flow_rate: 600.0   # tonne-per-day
+    temperature: 20.0       # temperature of coolant at inlet (K)
+    pressure: 500           # pressure of coolant at inlet (kPa)
+    transport_model: "SAFT"  # SAFT-VRQ-Mie + Residual Entropy Scaling
+
+reactor:
+    length: 6.0             # m
+    width: 1.5              # m
+    height: 3.3             # m
+    fin_thickness: 0.4e-3   # m
+    fin_height: 6.0e-3      # m
+    fin_pitch: 1.5e-3       # m
+    seration_length: 6.0e-3 # m
+    parting_sheet_thickness: 1.5e-3 # m
+
+catalyst:
+    solid_fraction: 0.31    # volumetric fraction of catalyst particles
+    diameter: 424.0e-6      # mean particle diameter
+    density: 4.0            # solid density of catalyst particles (g/cm3)
+
+simulation:
+    nodes: 50               # number of nodes across reactor length
+    tolerance: 1.0e-4       # tolerance of bvp solver
+    delta_t: 1.0            # initial guess of temperature difference

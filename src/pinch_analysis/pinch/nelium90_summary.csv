@@ -1,0 +1,3 @@
+case,xHe,xNe,P_bar,mdot_HENE_kgps,T_HENE_out_K,dTmin_K,Qpinch_kW,T_bub_K,T_dew_K
+baseline,0.80,0.20,3.0,6.900000,74.0500,2.4738,38.57,NaN,NaN
+nelium90,0.10,0.90,10.0,10.525679,62.4355,2.4760,38.57,NaN,NaN
