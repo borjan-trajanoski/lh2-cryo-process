@@ -49,7 +49,7 @@ property fitting, and all publication figures.
 ├── .gitignore
 │
 ├── data/            # Storage-tank BOG cases, facility/literature validation datasets (CSV)
-├── models/          # Aspen HYSYS process flowsheet
+├── flowsheet/       # Aspen HYSYS process flowsheet
 │
 ├── src/
 │   ├── python/
