@@ -7,10 +7,7 @@ MSc Thesis, Mechanical Engineering (Energy, Flow and Process Technology)
 Faculty of Mechanical Engineering, Department of Process & Energy
 Delft University of Technology
 
-Author: Borjan Trajanoski (6304168)
-Supervisors: Dr.ir. Mahinder Ramdin, Dr. Chiara Falsetti
-Committee: Dr. Emanuele Zanetti, Prof.dr. Arvind Gangoli Rao
-Project duration: November 17, 2025 to July 14, 2026
+Author: Borjan Trajanoski
 
 ---
 
