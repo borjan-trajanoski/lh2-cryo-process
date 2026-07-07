@@ -43,58 +43,26 @@ property fitting, and all publication figures.
 
 ## Repository Structure
 
-````text
+```text
 .
 ├── README.md
 ├── .gitignore
 │
-├── data/                        # Simulation exports and validation datasets (flat, CSV)
-│   ├── 1_3200m3_Spherical.csv, 2_3200m3_horizontal.csv, 2a_3200m3_vertical.csv,
-│   │   3_1500m3_spherical.csv, 4_1500m3_horizontal.csv, 4a_1500m3_vertical.csv,
-│   │   5_500m3_spherical.csv, 6_500m3_horizontal.csv, 6a_500m3_vertical.csv,
-│   │   7_100m3_spherical.csv, 8_100m3_horizontal.csv, 8a_100m3_vertical.csv
-│   │                            # Storage-tank BOG cases by volume/geometry/orientation
-│   ├── 3200m3_NASA_KSC_Case.csv, 3200m3_NASA_KSC_Case_v2.csv
-│   │                            # NASA KSC reference tank case
-│   ├── Boil-off_Simulation_Results.csv
-│   ├── Case_1_self_pressurization.csv, Case_2_DDL_Dewar_100days.csv
-│   │                            # Self-pressurization and long-duration dewar validation
-│   ├── ksite_selfpress_3.5Wm2.csv, ksite_temp_139cm_interface_3.5Wm2.csv,
-│   │   ksite_temp_162cm_vapor_3.5Wm2.csv
-│   │                            # K-Site cryogenic test facility validation data
-│   ├── llnl_boiloff_summer.csv  # LLNL boil-off validation data
-│   ├── assael_1981_he_ne_thermal_conductivity.csv, helium_thermal_conductivity_degroot1978.csv,
-│   │   neon_thermal_conductivity_degroot1978.csv
-│   │                            # Literature transport-property reference data
-│   └── validation_*assael1981*.csv
-│                                # SAFT/REFPROP transport-property validation vs. Assael (1981)
-│
-├── models/
-│   ├── LH2_aspen_model.hsc      # Aspen HYSYS process flowsheet
-│   └── LH2_aspen_model.bk0      # HYSYS backup
+├── data/            # Storage-tank BOG cases, facility/literature validation datasets (CSV)
+├── models/          # Aspen HYSYS process flowsheet
 │
 ├── src/
 │   ├── python/
-│   │   ├── properties/
-│   │   │   ├── hydrogen-pfhx-saft/       # O'Neill PFHX model + SAFT-VRQ-Mie EOS (standalone package)
-│   │   │   └── hene_transport_properties/
-│   │   │       ├── HeNe_VLE_PR.ipynb     # He-Ne VLE via Peng-Robinson, vs. Heck et al. data
-│   │   │       ├── HeNe_VLE_SAFT.ipynb   # He-Ne VLE via SAFT-VRQ-Mie (feos), vs. Heck et al. data
-│   │   │       └── HeNe_transport.ipynb  # He-Ne transport property fitting
-│   │   └── tea/                          # Techno-economic assessment
-│   │
+│   │   ├── properties/    # PFHX property models (O'Neill + SAFT-VRQ-Mie) and He-Ne VLE/transport notebooks
+│   │   └── tea/            # Techno-economic assessment
 │   ├── matlab/
-│   │   └── storage/              # Two-vessel holding/loading BOG model, steady-state loading
-│   │
-│   └── pinch_analysis/           # PFHX-5 pinch + area pipeline and the ejector BOG-recovery model
-│       ├── ejector/              # Ejector solver (adapted from Moro et al.), MATLAB
-│       └── pinch/                # Pinch/area calculations (MATLAB) and figure scripts (Python)
+│   │   └── storage/        # Two-vessel holding/loading BOG model
+│   └── pinch_analysis/     # PFHX-5 pinch/area pipeline and the coupled ejector BOG-recovery model
 │
 └── results/
-    ├── figures/                 # Publication figures: validation plots, Ts diagrams, TEA/sensitivity
-    │                            # figures, pinch curves, transport-property fits, etc.
-    └── pfd/                     # Process flow diagrams (baseline, adapted, isolated configurations)
-````
+    ├── figures/     # Publication figures
+    └── pfd/         # Process flow diagrams
+```
 
 The `ejector/` and `pinch/` subfolders under `pinch_analysis/` are coupled by a
 fixed workflow (run the ejector step, then `cd ../pinch` and run the pinch
