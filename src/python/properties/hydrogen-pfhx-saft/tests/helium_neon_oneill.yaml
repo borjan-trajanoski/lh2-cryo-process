@@ -1,0 +1,36 @@
+# Configuration for He-Ne coolant using O'Neill's original model
+# CoolProp HEOS + Tkaczuk (EoS) + Xiao/Huber polynomials + linear mixing
+
+reactant:
+    mass_flow_rate: 100.0   # tonne-per-day
+    x_para: 0.25            # para-hydrogen fraction at inlet
+    temperature: 80         # inlet temperature (K)
+    pressure: 5000          # inlet pressure (kPa)
+
+coolant:
+    fluid: "HeliumNeon"
+    helium_fraction: 0.80
+    mass_flow_rate: 600.0   # tonne-per-day
+    temperature: 20.0       # coolant inlet temperature (K)
+    pressure: 500           # coolant inlet pressure (kPa)
+    transport_model: "ONeill"  # <-- uses HeliumNeon (CoolProp + linear mixing)
+
+reactor:
+    length: 6.0
+    width: 1.5
+    height: 3.3
+    fin_thickness: 0.4e-3
+    fin_height: 6.0e-3
+    fin_pitch: 1.5e-3
+    seration_length: 6.0e-3
+    parting_sheet_thickness: 1.5e-3
+
+catalyst:
+    solid_fraction: 0.31
+    diameter: 424.0e-6
+    density: 4.0
+
+simulation:
+    nodes: 50
+    tolerance: 1.0e-4
+    delta_t: 1.0

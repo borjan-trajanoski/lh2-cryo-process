@@ -59,14 +59,16 @@ publication figures.
 │
 ├── src/
 │   ├── python/
-│   │   ├── properties/      # SAFT-VRQ-Mie / FeOs / REFPROP wrappers
-│   │   ├── pinch/           # PFHX pinch analysis (Stage 3)
-│   │   ├── tea/             # Techno-economic assessment
-│   │   └── plotting/        # PLOT_SETTINGS.py and figure scripts
+│   │   ├── properties/
+│   │   │   └── hydrogen-pfhx-saft/  # O'Neill PFHX model + SAFT-VRQ-Mie EOS (standalone package)
+│   │   └── tea/              # Techno-economic assessment (cryo_textbook_tea.py, economic_figures.py)
 │   │
-│   └── matlab/
-│       ├── ejector/         # Ejector BOG-recovery model (adapted from Moro et al.)
-│       └── storage/         # Two-vessel holding/loading BOG model (Petitpas-based)
+│   ├── matlab/
+│   │   └── storage/          # Two-vessel holding/loading BOG model (Petitpas-based), steady-state loading
+│   │
+│   └── pinch_analysis/       # PFHX-5 pinch + area pipeline and the ejector BOG-recovery model
+│       ├── ejector/          # Ejector solver (adapted from Moro et al.), MATLAB
+│       └── pinch/            # Pinch/area calculations (MATLAB) and figure scripts (Python)
 │
 ├── models/
 │   └── hysys/               # Aspen HYSYS case files (.hsc) and flowsheet notes
@@ -82,6 +84,11 @@ publication figures.
 │
 └── scripts/                 # Utility and one-off automation scripts
 ```
+
+The `ejector/` and `pinch/` subfolders under `pinch_analysis/` are coupled by a
+fixed workflow (run the ejector step, then `cd ../pinch` and run the pinch
+step), so they are kept as siblings rather than split across the
+`python/`/`matlab/` boundary.
 
 The thesis is organized by process stage. Chapter 4 covers the cryogenic PFHX
 (Stage 3), Chapter 5 covers LH2 storage and BOG management (Stage 5), and

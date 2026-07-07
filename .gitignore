@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+
+# Large raw MATLAB binary outputs (regenerate by running the corresponding script)
+*.mat
