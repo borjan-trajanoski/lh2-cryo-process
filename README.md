@@ -75,14 +75,6 @@ publication figures.
 │
 ├── results/
 │   ├── figures/             # Final figures (versioned; large exports ignored)
-│   └── tables/              # TEA and sensitivity output tables
-│
-├── docs/
-│   ├── thesis/              # LaTeX source of the thesis manuscript
-│   ├── colloquium/          # Slides and abstract
-│   └── notes/               # Derivations, meeting notes, methodology writeups
-│
-└── scripts/                 # Utility and one-off automation scripts
 ```
 
 The `ejector/` and `pinch/` subfolders under `pinch_analysis/` are coupled by a
