@@ -93,7 +93,7 @@ read off the manuscript.
 | Jupyter               | latest          | He-Ne VLE / transport-property notebooks       |
 | MATLAB                | R2023b or later | Ejector and two-vessel storage models          |
 | Aspen HYSYS           | V14             | Process flowsheet and simulation               |
-| REFPROP               | v9.1 and v10    | Reference fluid properties                     |
+| REFPROP               | v10             | Reference fluid properties                     |
 | FeOs                  | latest          | SAFT-VRQ-Mie property calculations             |
 | BoilFAST              | latest          | Boil-off gas cross-verification                |
 
