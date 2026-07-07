@@ -56,7 +56,7 @@ property fitting, and all publication figures.
 │   │   ├── properties/    # PFHX property models (O'Neill + SAFT-VRQ-Mie) and He-Ne VLE/transport notebooks
 │   │   └── tea/            # Techno-economic assessment
 │   ├── matlab/
-│   │   └── storage/        # Two-vessel holding/loading BOG model
+│   │   └── bog/            # Two-vessel holding/loading BOG model
 │   └── pinch_analysis/     # PFHX-5 pinch/area pipeline and the coupled ejector BOG-recovery model
 │
 └── results/
