@@ -7,7 +7,7 @@ MSc Thesis, Mechanical Engineering (Energy, Flow and Process Technology)
 Faculty of Mechanical Engineering, Department of Process & Energy
 Delft University of Technology
 
-Author: Borjan Trajanoski
+Author: Borjan Trajanoski (6304168)
 
 ---
 
